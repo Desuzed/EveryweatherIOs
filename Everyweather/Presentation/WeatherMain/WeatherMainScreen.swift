@@ -1,8 +1,20 @@
 import SwiftUI
 
 struct WeatherMainScreen: View {
+
+    private let api = WeatherRemoteSource(apiClient: ApiClient())
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            Text("Hello, World!")
+                .foregroundColor(Color("name"))
+            Button("Get weather") {
+                Task {
+                    let result = await api.fetchForecastData(query: "Moscow", lang: "ru")
+                    print(result)
+                }
+            }
+        }
     }
 }
 
